@@ -1,0 +1,14 @@
+# git ignores for EchoSegmentation
+
+# Want to ignore all .ipynb_checkpoints:
+# https://stackoverflow.com/questions/35916658/how-to-git-ignore-ipython-notebook-checkpoints-anywhere-in-repository
+.ipynb_checkpoints
+CAMUS/
+__pycache__
+notebooks/None0000000.png
+notebooks/src
+logs
+saved_models
+*.png
+*.pdf
+*.gif
