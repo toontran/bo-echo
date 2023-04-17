@@ -23,33 +23,28 @@ warnings.filterwarnings("ignore")
 # The configurations
 CONFIG = {}
 # List of computers you have ssh access to. We'll optimize our model on these computers
+#
 CONFIG["computer_list"] = {
     "acet": [
-        'tst008@acet116-lnx-16.bucknell.edu',
+        '[some-username]@[some-hostname]', # TODO: replace [some-username] and [some-hostname]
     ],
-#     "tung-torch": ['tung@jvs008-r1.bucknell.edu']
+#     "tung-torch": ['john@jvs008.bucknell.edu'] # Example
 }
 # Commands to run on target machines
 CONFIG["commands"] = {
-    "acet_update": "cd pj/bo_echo/src/ && git pull" + \
-                   " && pkill -9 python" + \
-                   " && module switch python/3.9-deeplearn" + \
-                   # "; export LD_LIBRARY_PATH=/usr/remote/lib:/usr/remote/anaconda-3.7-2020-05-28/lib" + \
-                   " && python3 ~/pj/bo-echo/src/camus_optimize_meanval.py --run_as trainer",
     "acet": "sleep 30 && module switch python/3.9-deeplearn" + \
                    " && pkill -9 python" + \
                    # "; export LD_LIBRARY_PATH=/usr/remote/lib:/usr/remote/anaconda-3.7-2020-05-28/lib" + \
-                   " && python3 ~/pj/bo-echo/src/camus_optimize_meanval.py --run_as trainer",
-    # "localhost": "/opt/anaconda/envs/jupyter37/bin/python ~/pj/camus_segmentation/src/camus_optimize_meanval_3.py --run_as trainer"
+                   " && python3 ~/[some-path]/camus_optimize_meanval.py --run_as trainer", # This is required. TODO: replace [some-path]
+    # "localhost": "/opt/anaconda/envs/jupyter37/bin/python ~/pj/camus_segmentation/src/camus_optimize_meanval.py --run_as trainer" # Example
 }
 # Server and trainer info
 CONFIG["server"] = {
-    "host": "acet116-lnx-22.bucknell.edu",
+    "host": "[your-hostname]", # TODO: replace [your-hostname] (your server hostname)
     "port": 15555,
-    # "verbose": False
 }
 CONFIG["trainer"] = {
-    "username": "tst008",
+    "username": "[your-username]", # TODO: replace [your-username]
     "num_constraints": 1,
     "verbose": False
 }
@@ -175,10 +170,6 @@ if __name__ == "__main__":
                            help='Specify the role of the machine (server or trainer). Defaults to server',
                            type=str, required=False,
                            default="server")
-    parser.add_argument('--data_folder', action='store', dest='data_folder',
-                           help='Specify the directory to the data folder (for trainers only)',
-                           type=str, required=False,
-                           default="~/PycharmProjects/summer/data/CroppedYale/")
     args = parser.parse_args()
     
     # Can modify these code to accomodate more options
